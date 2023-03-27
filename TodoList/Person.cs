@@ -14,7 +14,7 @@ namespace TodoList
         public string? Name { get; set; }
         
 
-        public void SetName()
+        public  Person()
         {
             this.Name = "EU";
         }

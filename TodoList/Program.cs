@@ -6,6 +6,7 @@ internal class Program
     private static void Main(string[] args)
     {
         List<ToDo> toDoList = new List<ToDo>();
+        List<String>categoryList = new List<String>();
         do
         {
             Console.Clear();
