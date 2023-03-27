@@ -6,8 +6,8 @@ internal class Program
     private static void Main(string[] args)
     {
         List<ToDo> toDoList = new List<ToDo>();
-        List<Person> user = new List<Person>();
-        List<string> category = new List<string>();
+        List<Person> userList = new List<Person>();
+        List<string> categoryList = new List<string>();
 
 
         string toDoArchiveName = "ToDoList.txt";
@@ -17,7 +17,7 @@ internal class Program
         if (File.Exists(toDoArchiveName))
         {
             ReadToDoFile(toDoArchiveName);
-        }       
+        }
 
         if (File.Exists(registerUser))
         {
@@ -27,9 +27,9 @@ internal class Program
         {
             Console.WriteLine("Registre o primeiro usuário:");
             Console.WriteLine("Digite o nome do usuário:");
-            var name  = Console.ReadLine();
+            var name = Console.ReadLine();
             RegisterUser(name);
-            WriteUserFile(user, registerUser);
+            WriteUserFile(userList, registerUser);
         }
 
         if (File.Exists(registerCategory))
@@ -38,9 +38,9 @@ internal class Program
         }
         else
         {
-            category.Add("Importante");
-            category.Add("Profissional");
-            category.Add("Pessoal");
+            categoryList.Add("Importante");
+            categoryList.Add("Profissional");
+            categoryList.Add("Pessoal");
         }
 
         do
@@ -52,7 +52,7 @@ internal class Program
             {
                 case 1:
 
-                    CreateTask(category, toDoList);
+                    CreateTask(categoryList, toDoList);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
@@ -105,51 +105,43 @@ internal class Program
         string description = Console.ReadLine();
         char ownerName = '.';
 
-        Person person = new Person();
-        
-            Console.Write("Deseja informar um nome para proprietário da tarefa? Digite 's' para SIM, ou 'n' para NÃO: ");
-            ownerName = char.Parse(Console.ReadLine());
-
-        if(ownerName == 's')
-        {
-            Console.Write("Informe o nome: ");
-            person.SetName(Console.ReadLine());
-        }
-
         Console.Write("Deseja informe uma data para o termino? Digite 's' para SIM, ou 'n' para NÃO :");
         char endDate = char.Parse(Console.ReadLine());
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        
-        if(endDate == 's')
+        int year = 1960;
+        int month = 1;
+        int day = 1;
+
+        if (endDate == 's')
         {
             Console.Write("Informe  o ano: ");
-             year = int.Parse(Console.ReadLine());
+            year = int.Parse(Console.ReadLine());
 
             Console.Write("Informe  o mês: ");
-             month = int.Parse(Console.ReadLine());
+            month = int.Parse(Console.ReadLine());
 
             Console.Write("Informe  o dia: ");
-             day = int.Parse(Console.ReadLine());
+            day = int.Parse(Console.ReadLine());
         }
-
-
-       
 
         DateTime date = new DateTime(year, month, day);
 
         ListCategory(categoryList);
         Console.WriteLine("Informe a categoria escolhida: ");
-        int newCategory = int.Parse(Console.ReadLine());
+        int newCategory = InsertInt();
 
-        ToDo task = new ToDo(description, categoryList[newCategory-1], date);
+        ToDo task = new ToDo(description, categoryList[newCategory - 1], date);
         toDoList.Add(task);
 
+    }
 
 
-
-
+    private static void ListUser(List<Person> userList)
+    {
+        int number = 1;
+        foreach (Person person in userList)
+        {
+            Console.WriteLine(number + "-" + person.ToString());
+        }
     }
 
     private static List<string> CreateCategory(List<string> category, string s)
@@ -161,7 +153,7 @@ internal class Program
 
     private static void CompleteTask(List<ToDo> toDoList)
     {
-        foreach(var item in toDoList)
+        foreach (var item in toDoList)
         {
             Console.WriteLine(item.ToString());
 
@@ -264,7 +256,7 @@ internal class Program
         {
             Console.WriteLine("Arquivo Lido");
         }
-    }    
+    }
 
     private static List<Person> ReadUserFile(string v)
     {
@@ -321,7 +313,7 @@ internal class Program
 
 
 
-    
+
 
 
     private static void ListCategory(List<string> category)
@@ -330,10 +322,9 @@ internal class Program
         int i = 1;
         foreach (string item in category)
         {
-            Console.WriteLine(i +"-" +item);
+            Console.WriteLine(i + "-" + item);
             i++;
         }
-        Console.ReadKey();
     }
 
     private static void ReturnTasks(List<ToDo> ToDoList)

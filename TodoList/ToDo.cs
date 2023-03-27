@@ -8,7 +8,7 @@ namespace TodoList
 {
     internal class ToDo
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
         public Person Owner { get; set; }
@@ -16,24 +16,12 @@ namespace TodoList
         public DateTime DueDate { get; set; }
         public bool Status { get; set; }
 
-        public ToDo(string description)
-        {
-            var temp = Guid.NewGuid();
-            Id = temp.ToString().Substring(0, 8);
-            Description = description;
-            Person Owner = new Person();
-            Created = DateTime.Now;
-            Status = false;
-
-            
-        }
-
         public ToDo(string description, string category, DateTime dueDate)
         {
-            var temp = Guid.NewGuid();
-            Id = temp.ToString().Substring(0, 8);
+            this.Id = Guid.NewGuid();
             Description = description;
-            Category = category;            
+            Category = category; 
+            Owner = new Person();
             Created = DateTime.Now;
             DueDate = dueDate;
             Status = false;
@@ -51,9 +39,9 @@ namespace TodoList
 
         public override string ToString()
         {
-            return $"ID: {this.Id} DESCRIÇÃO: {this.Description} CATEGORIA: {this.Category}" +
-                $" PROPRIETÁRIO: {this.Owner}  DATA DE INICIO: {this.Created} DATA FINAL: {this.DueDate}" +
-                $" STATUS: {this.Status}";
+            return $"ID: {this.Id} \nDESCRIÇÃO: {this.Description} \nCATEGORIA: {this.Category}" +
+                $" \nPROPRIETÁRIO: {this.Owner}  \nDATA DE INICIO: {this.Created} \nDATA FINAL: {this.DueDate}" +
+                $" \nSTATUS: {this.Status}\n\n";
         }
     }
 }
