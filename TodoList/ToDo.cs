@@ -20,7 +20,6 @@ namespace TodoList
         {
             var temp = Guid.NewGuid();
             Id = temp.ToString().Substring(0, 8);
-
         }
 
         public ToDo(string id, string description, string category, Person owner, DateTime dueDate, bool status)
