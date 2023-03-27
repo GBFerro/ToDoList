@@ -18,7 +18,7 @@ internal class Program
         if (File.Exists(toDoArchiveName))
         {
             ReadToDoFile(toDoArchiveName);
-        }       
+        }
 
         if (File.Exists(registerUser))
         {
@@ -122,7 +122,7 @@ internal class Program
         Console.WriteLine("Informe a categoria escolhida: ");
         int newCategory = InsertInt();
 
-        ToDo task = new ToDo(description, categoryList[newCategory-1], date);
+        ToDo task = new ToDo(description, categoryList[newCategory - 1], date);
         toDoList.Add(task);
 
     }

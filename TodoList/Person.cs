@@ -6,26 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TodoList
-{   
+{
 
     internal class Person
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        
 
-        public  Person()
+
+        public Person()
         {
+            Id = Guid.NewGuid();
             this.Name = "EU";
         }
 
-        public void SetName(string name)
+        public Person(string name, Guid id)
         {
             this.Name = name;
+            this.Id = id;
         }
-
-
-      
 
         public Person(string? name)
         {
@@ -35,11 +34,11 @@ namespace TodoList
         public string ToFile()
         {
             return $"{this.Id};{this.Name}";
-        }        
+        }
 
         public override string ToString()
         {
-            return $"ID: {this.Id}\nNome: {this.Name}";
+            return $"\n\tID: {this.Id}\n\tNome: {this.Name}";
         }
     }
 }
