@@ -35,6 +35,11 @@ namespace TodoList
             Status = status;
         }
 
+        public bool setStatus()
+        {
+            return true;
+        }
+
        
 
         public override string ToString()

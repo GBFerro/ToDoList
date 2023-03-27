@@ -1,7 +1,10 @@
-﻿internal class Program
+﻿using TodoList;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
+        List<ToDo> ToDoList = new List<ToDo>();
         do
         {
             Console.Clear();
@@ -35,7 +38,7 @@
 
                 case 5:
 
-                    Console.WriteLine("Aperte qualquer tecla para continuar");
+                    ReturnTasks();
                     Console.ReadKey();
                     break;
 
@@ -53,6 +56,14 @@
         } while (true);
 
 
+    }
+
+    private static void ReturnTasks(List<ToDo> ToDoList)
+    {
+        foreach (ToDo task in ToDoList)
+        {
+            Console.WriteLine(task.ToString());
+        }
     }
 
     private static int Menu()
@@ -84,4 +95,6 @@
 
         } while (true);
     }
+
+    
 }
