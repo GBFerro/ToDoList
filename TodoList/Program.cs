@@ -8,6 +8,9 @@ internal class Program
         List<ToDo> toDoList = new List<ToDo>();
         List<Person> user = new List<Person>();
         List<string> category = new List<string>();
+        category.Add("Importante");
+        category.Add("Profissional");
+        category.Add("Pessoal");
 
         string toDoArchiveName = "ToDoList.txt";
         string registerUser = "RegisterUser";
@@ -25,7 +28,7 @@ internal class Program
             {
                 case 1:
 
-                    CreateTask(categoryList);
+                    CreateTask(category);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
@@ -91,35 +94,32 @@ internal class Program
 
         Console.Write("Deseja informe uma data para o termino? Digite 's' para SIM, ou 'n' para NÃO :");
         char endDate = char.Parse(Console.ReadLine());
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        
+        if(endDate == 's')
+        {
+            Console.Write("Informe  o ano: ");
+             year = int.Parse(Console.ReadLine());
 
-        Console.WriteLine();
+            Console.Write("Informe  o mês: ");
+             month = int.Parse(Console.ReadLine());
 
-        Console.Write("Informe  o ano: ");
-        int year = int.Parse(Console.ReadLine());
+            Console.Write("Informe  o dia: ");
+             day = int.Parse(Console.ReadLine());
+        }
 
-        Console.Write("Informe  o mês: ");
-        int month = int.Parse(Console.ReadLine());
 
-        Console.Write("Informe  o dia: ");
-        int day = int.Parse(Console.ReadLine());
+       
 
         DateTime date = new DateTime(year, month, day);
 
         ListCategory(categoryList);
+        Console.WriteLine("Informe a categoria escolhida: ");
+        int newCategory = int.Parse(Console.ReadLine());
 
-
-        Console.WriteLine("Deseja adicionar uma nova categoria: ");
-        char answer = char.Parse(Console.ReadLine());
-        string newCategory = "";
-
-        if (answer == 's')
-
-        {
-            Console.Write("Informe a nova categoria desejada: ");
-             newCategory = Console.ReadLine();
-            categoryList.Add(newCategory);
-        }
-        ToDo task = new ToDo(description, newCategory, date); 
+        ToDo task = new ToDo(description, categoryList[newCategory-1], date); 
 
 
 
@@ -143,7 +143,7 @@ internal class Program
     private static Person RegisterUser(string name)
     {
         Person person = new Person(name);
-
+        return person;
     }
 
     private static void WriteToDoFile(List<ToDo> list, string v)
@@ -287,9 +287,11 @@ internal class Program
     private static void ListCategory(List<string> category)
     {
         Console.WriteLine("CATEGORIAS DISPONÍVEIS:");
+        int i = 1;
         foreach (string item in category)
         {
-            Console.WriteLine(item);
+            Console.WriteLine(i +"-" +item);
+            i++;
         }
         Console.ReadKey();
     }
