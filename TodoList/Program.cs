@@ -14,6 +14,7 @@ internal class Program
         string registerUser = "RegisterUser.txt";
         string registerCategory = "Category.txt";
 
+
         if (File.Exists(toDoArchiveName))
         {
             ReadToDoFile(toDoArchiveName);
