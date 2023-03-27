@@ -23,7 +23,7 @@ namespace TodoList
             
         }
 
-        public ToDo(string id, string description, string category, Person owner, DateTime dueDate, bool status)
+        public ToDo(string id, string description, string category, Person owner, DateTime dueDate)
         {
             var temp = Guid.NewGuid();
             Id = temp.ToString().Substring(0, 8);
@@ -32,12 +32,12 @@ namespace TodoList
             Owner = owner;
             Created = DateTime.Now;
             DueDate = dueDate;
-            Status = status;
+            Status = false;
         }
 
-        public bool setStatus()
+        public void SetStatus(bool b)
         {
-            return true;
+            Status = b;
         }
 
        
