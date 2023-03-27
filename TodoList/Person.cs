@@ -10,5 +10,20 @@ namespace TodoList
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
+
+        public Person(string? name)
+        {
+            Name = name;
+        }
+
+        public string ToFile()
+        {
+            return $"{this.Id};{this.Name}";
+        }        
+
+        public override string ToString()
+        {
+            return $"ID: {this.Id}\nNome: {this.Name}";
+        }
     }
 }

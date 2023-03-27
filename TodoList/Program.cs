@@ -1,7 +1,19 @@
-﻿internal class Program
+﻿using TodoList;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
+        List<ToDo> toDoList = new List<ToDo>();
+        string toDoArchiveName = "ToDoList.txt";
+        string registerUser = "RegisterUser";
+
+        if (File.Exists(toDoArchiveName))
+        {
+            ReadFile(toDoArchiveName);
+        }
+
+        // Ler, ToFile, concluir tarefas, toString pessoa
         do
         {
             Console.Clear();
@@ -10,13 +22,16 @@
             switch (op)
             {
                 case 1:
-
+                    WriteFile(toDoList, toDoArchiveName);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
 
                 case 2:
-
+                    Console.Clear();
+                    Console.WriteLine("Digite o nome da pessoa");
+                    RegisterUser(Console.ReadLine());
+                    WriteFile(toDoList, registerUser);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
@@ -54,6 +69,58 @@
 
 
     }
+
+    private static Person RegisterUser(string name)
+    {
+        Person person = new Person(name);
+
+        return person;
+    }
+
+    private static void WriteFile(List<ToDo> toDoList, string v)
+    {
+        try
+        {
+            StreamWriter sw = new StreamWriter(v);
+            foreach (ToDo toDo in toDoList)
+            {
+                sw.WriteLine(toDo.ToFile());
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            Console.WriteLine("Arquivo gravado");
+        }
+    }
+
+    private static void ReadFile(string v)
+    {
+        List<ToDo> toDoList;
+
+        try
+        {
+            string line;
+            StreamReader sr = new StreamReader(v);
+            while ((line = sr.ReadLine()) != null)
+            {
+                var aux = line.Split(';');
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        finally
+        {
+            Console.WriteLine("Arquivo Lido");
+        }
+    }
+
 
     private static int Menu()
     {
