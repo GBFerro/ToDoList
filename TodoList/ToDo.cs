@@ -39,12 +39,15 @@ namespace TodoList
             Status = false;
         }
 
-        public bool setStatus()
+        public void SetStatus(bool b)
         {
-            return true;
+            Status = b;
         }
 
-       
+        public string ToFile()
+        {
+            return $"{this.Id};{this.Description};{this.Category};{this.Owner};{this.Created};{this.DueDate};{this.Status}";
+        }
 
         public override string ToString()
         {
@@ -52,7 +55,5 @@ namespace TodoList
                 $" PROPRIETÁRIO: {this.Owner}  DATA DE INICIO: {this.Created} DATA FINAL: {this.DueDate}" +
                 $" STATUS: {this.Status}";
         }
-
-
     }
 }

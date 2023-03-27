@@ -26,5 +26,20 @@ namespace TodoList
 
 
       
+
+        public Person(string? name)
+        {
+            Name = name;
+        }
+
+        public string ToFile()
+        {
+            return $"{this.Id};{this.Name}";
+        }        
+
+        public override string ToString()
+        {
+            return $"ID: {this.Id}\nNome: {this.Name}";
+        }
     }
 }
