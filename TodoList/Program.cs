@@ -1,10 +1,11 @@
-﻿using TodoList;
+﻿using System.Collections.Generic;
+using TodoList;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        List<ToDo> ToDoList = new List<ToDo>();
+        List<ToDo> toDoList = new List<ToDo>();
         do
         {
             Console.Clear();
@@ -14,7 +15,7 @@ internal class Program
             {
                 case 1:
 
-                    Console.WriteLine("Aperte qualquer tecla para continuar");
+                    CreateTask();
                     Console.ReadKey();
                     break;
 
@@ -38,7 +39,7 @@ internal class Program
 
                 case 5:
 
-                    ReturnTasks();
+                    ReturnTasks(toDoList);
                     Console.ReadKey();
                     break;
 
@@ -56,6 +57,11 @@ internal class Program
         } while (true);
 
 
+    }
+
+    private static void CreateTask()
+    {
+        throw new NotImplementedException();
     }
 
     private static void ReturnTasks(List<ToDo> ToDoList)
