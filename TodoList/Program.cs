@@ -1,10 +1,16 @@
-﻿using TodoList;
+﻿using System.Collections.Generic;
+using TodoList;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        List<ToDo> ToDoList = new List<ToDo>();
+        List<ToDo> toDoList = new List<ToDo>();
+        List<string> categoryList = new List<string>();
+        categoryList.Add("Important");
+        categoryList.Add("Personal");
+        categoryList.Add("Professional");
+
         do
         {
             Console.Clear();
@@ -14,7 +20,7 @@ internal class Program
             {
                 case 1:
 
-                    Console.WriteLine("Aperte qualquer tecla para continuar");
+                    CreateTask(categoryList);
                     Console.ReadKey();
                     break;
 
@@ -38,7 +44,7 @@ internal class Program
 
                 case 5:
 
-                    ReturnTasks();
+                    ReturnTasks(toDoList);
                     Console.ReadKey();
                     break;
 
@@ -58,6 +64,70 @@ internal class Program
 
     }
 
+    private static void CreateTask(List<string> categoryList)
+    {
+        Console.Write("Informe uma descrição para tarefa: ");
+        string description = Console.ReadLine();
+        char ownerName = '.';
+
+        Person person = new Person();
+        
+            Console.Write("Deseja informar um nome para proprietário da tarefa? Digite 's' para SIM, ou 'n' para NÃO: ");
+            ownerName = char.Parse(Console.ReadLine());
+
+        if(ownerName == 's')
+        {
+            Console.Write("Informe o nome: ");
+            person.SetName(Console.ReadLine());
+        }
+
+        Console.Write("Deseja informe uma data para o termino? Digite 's' para SIM, ou 'n' para NÃO :");
+        char endDate = char.Parse(Console.ReadLine());
+
+        Console.WriteLine();
+
+        Console.Write("Informe  o ano: ");
+        int year = int.Parse(Console.ReadLine());
+
+        Console.Write("Informe  o mês: ");
+        int month = int.Parse(Console.ReadLine());
+
+        Console.Write("Informe  o dia: ");
+        int day = int.Parse(Console.ReadLine());
+
+        DateTime date = new DateTime(year, month, day);
+
+        ListCategory(categoryList);
+
+
+        Console.WriteLine("Deseja adicionar uma nova categoria: ");
+        char answer = char.Parse(Console.ReadLine());
+        string newCategory = "";
+
+        if (answer == 's')
+
+        {
+            Console.Write("Informe a nova categoria desejada: ");
+             newCategory = Console.ReadLine();
+            categoryList.Add(newCategory);
+        }
+        ToDo task = new ToDo(description, newCategory, date); 
+
+
+
+    }
+
+    private static void ListCategory(List<string> category)
+    {
+        Console.WriteLine("CATEGORIAS DISPONÍVEIS:");
+        foreach (string item in category)
+        {
+            Console.WriteLine(item);
+        }
+        Console.ReadKey();
+    }
+    
+
     private static void ReturnTasks(List<ToDo> ToDoList)
     {
         foreach (ToDo task in ToDoList)
@@ -73,13 +143,13 @@ internal class Program
             "3 - Criar Categorias\n4 - Concluir Tarefa\n5 - Listar Tarefas\n6 - Sair\n\n" +
             "Escolha uma opção: ");
 
-        var aux = IsInt();
+        var aux = InsertInt();
 
         return aux;
 
     }
 
-    private static int IsInt()
+    private static int InsertInt()
     {
         int value;
         do

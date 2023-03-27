@@ -16,23 +16,27 @@ namespace TodoList
         public DateTime DueDate { get; set; }
         public bool Status { get; set; }
 
-        public ToDo()
-        {
-            var temp = Guid.NewGuid();
-            Id = temp.ToString().Substring(0, 8);
-            
-        }
-
-        public ToDo(string id, string description, string category, Person owner, DateTime dueDate, bool status)
+        public ToDo(string description)
         {
             var temp = Guid.NewGuid();
             Id = temp.ToString().Substring(0, 8);
             Description = description;
-            Category = category;
-            Owner = owner;
+            Person Owner = new Person();
+            Created = DateTime.Now;
+            Status = false;
+
+            
+        }
+
+        public ToDo(string description, string category, DateTime dueDate)
+        {
+            var temp = Guid.NewGuid();
+            Id = temp.ToString().Substring(0, 8);
+            Description = description;
+            Category = category;            
             Created = DateTime.Now;
             DueDate = dueDate;
-            Status = status;
+            Status = false;
         }
 
         public bool setStatus()
