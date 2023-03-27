@@ -8,15 +8,39 @@ internal class Program
         List<ToDo> toDoList = new List<ToDo>();
         List<Person> user = new List<Person>();
         List<string> category = new List<string>();
-        category.Add("Importante");
-        category.Add("Profissional");
-        category.Add("Pessoal");
+
 
         string toDoArchiveName = "ToDoList.txt";
-        string registerUser = "RegisterUser";
+        string registerUser = "RegisterUser.txt";
+        string registerCategory = "Category.txt";
 
         if (File.Exists(toDoArchiveName))
         {
+            ReadToDoFile(toDoArchiveName);
+        }       
+
+        if (File.Exists(registerUser))
+        {
+            ReadUserFile(registerUser);
+        }
+        else
+        {
+            Console.WriteLine("Registre o primeiro usuário:");
+            Console.WriteLine("Digite o nome do usuário:");
+            var name  = Console.ReadLine();
+            RegisterUser(name);
+            WriteUserFile(user, registerUser);
+        }
+
+        if (File.Exists(registerCategory))
+        {
+            ReadCategoryFile(registerCategory);
+        }
+        else
+        {
+            category.Add("Importante");
+            category.Add("Profissional");
+            category.Add("Pessoal");
         }
 
         do
@@ -27,7 +51,6 @@ internal class Program
             switch (op)
             {
                 case 1:
-
                     CreateTask(category);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
@@ -123,6 +146,13 @@ internal class Program
 
 
 
+    }
+
+    private static List<string> CreateCategory(List<string> category, string s)
+    {
+        category.Add(s);
+
+        return category;
     }
 
     private static void CompleteTask(List<ToDo> toDoList)
@@ -295,7 +325,6 @@ internal class Program
         }
         Console.ReadKey();
     }
-    
 
     private static void ReturnTasks(List<ToDo> ToDoList)
     {
@@ -315,7 +344,6 @@ internal class Program
         var aux = InsertInt();
 
         return aux;
-
     }
 
     private static int InsertInt()
@@ -334,6 +362,4 @@ internal class Program
 
         } while (true);
     }
-
-    
 }
