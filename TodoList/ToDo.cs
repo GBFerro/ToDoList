@@ -35,17 +35,7 @@ namespace TodoList
             Status = status;
         }
 
-        public ToDo(string id, string description, string category, Person owner, DateTime dueDate, bool status)
-        {
-            var temp = Guid.NewGuid();
-            Id = temp.ToString().Substring(0, 8);
-            Description = description;
-            Category = category;
-            Owner = owner;
-            Created = DateTime.Now;
-            DueDate = dueDate;
-            Status = status;
-        }
+       
 
         public override string ToString()
         {
