@@ -28,7 +28,7 @@ internal class Program
             {
                 case 1:
 
-                    CreateTask(category);
+                    CreateTask(category, toDoList);
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
@@ -75,7 +75,7 @@ internal class Program
 
     }
 
-    private static void CreateTask(List<string> categoryList)
+    private static void CreateTask(List<string> categoryList, List<ToDo> toDoList)
     {
         Console.Write("Informe uma descrição para tarefa: ");
         string description = Console.ReadLine();
@@ -119,7 +119,10 @@ internal class Program
         Console.WriteLine("Informe a categoria escolhida: ");
         int newCategory = int.Parse(Console.ReadLine());
 
-        ToDo task = new ToDo(description, categoryList[newCategory-1], date); 
+        ToDo task = new ToDo(description, categoryList[newCategory-1], date);
+        toDoList.Add(task);
+
+
 
 
 
@@ -283,6 +286,12 @@ internal class Program
             Console.WriteLine("Arquivo Lido");
         }
     }
+
+
+
+
+    
+
 
     private static void ListCategory(List<string> category)
     {
