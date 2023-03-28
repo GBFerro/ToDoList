@@ -17,17 +17,17 @@ internal class Program
 
         if (File.Exists(toDoArchiveName))
         {
-            ReadToDoFile(toDoArchiveName);
+            toDoList = ReadToDoFile(toDoArchiveName);
         }
 
         if (File.Exists(registerUser))
         {
-            ReadUserFile(registerUser);
+            userList = ReadUserFile(registerUser);
         }
 
         if (File.Exists(registerCategory))
         {
-            ReadCategoryFile(registerCategory);
+            categoryList = ReadCategoryFile(registerCategory);
         }
         else
         {
@@ -44,8 +44,8 @@ internal class Program
             switch (op)
             {
                 case 1:
-
                     CreateTask(categoryList, toDoList);
+
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
@@ -53,30 +53,40 @@ internal class Program
                 case 2:
                     Console.Clear();
                     Console.WriteLine("Digite o nome da pessoa");
-                    RegisterUser(Console.ReadLine());
+                    var name = Console.ReadLine();
+                    userList.Add(RegisterUser(name));
+
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
 
                 case 3:
+                    Console.WriteLine("Digite a nova categoria: ");
+                    var newCategory = Console.ReadLine();
+
+                    categoryList = CreateCategory(categoryList, newCategory);
 
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
 
                 case 4:
+                    CompleteTask(toDoList);
 
                     Console.WriteLine("Aperte qualquer tecla para continuar");
                     Console.ReadKey();
                     break;
 
                 case 5:
-
                     ReturnTasks(toDoList);
+
                     Console.ReadKey();
                     break;
 
                 case 6:
+                    WriteToDoFile(toDoList, toDoArchiveName);
+                    WriteCategoryFile(categoryList, registerCategory);
+                    WriteUserFile(userList, registerUser);
                     Environment.Exit(0);
                     break;
 
@@ -172,6 +182,7 @@ internal class Program
             {
                 sw.WriteLine(item.ToFile());
             }
+            sw.Close();
         }
         catch (Exception)
         {
@@ -192,6 +203,7 @@ internal class Program
             {
                 sw.WriteLine(item.ToFile());
             }
+            sw.Close();
         }
         catch (Exception)
         {
@@ -212,6 +224,7 @@ internal class Program
             {
                 sw.WriteLine(item);
             }
+            sw.Close();
         }
         catch (Exception)
         {
@@ -226,16 +239,34 @@ internal class Program
     private static List<ToDo> ReadToDoFile(string v)
     {
         List<ToDo> toDoList = new List<ToDo>();
+        ToDo toDoFile;
 
         try
         {
             string line;
+            DateTime createDate, dueDate;
+            Person person;
             StreamReader sr = new StreamReader(v);
             while ((line = sr.ReadLine()) != null)
             {
                 var aux = line.Split(';');
-            }
 
+                Guid id = Guid.Parse(aux[0]);
+                var description = aux[1];
+                var category = aux[2];
+
+                var status = bool.Parse(aux[5]);
+                var ownerId = Guid.Parse(aux[6]);
+                var ownerName = aux[7];
+                
+                createDate = DateTime.Parse(aux[3]);
+                dueDate = DateTime.Parse(aux[4]);
+
+                person = new(ownerName, ownerId);
+                toDoFile = new(id, description, category, createDate, dueDate, status, person);
+                toDoList.Add(toDoFile);
+            }
+            sr.Close();
             return toDoList;
         }
         catch (Exception)
@@ -251,8 +282,8 @@ internal class Program
 
     private static List<Person> ReadUserFile(string v)
     {
-        List<Person> user = new List<Person>();
-
+        List<Person> userList = new List<Person>();
+        Person user;
         try
         {
             string line;
@@ -260,9 +291,13 @@ internal class Program
             while ((line = sr.ReadLine()) != null)
             {
                 var aux = line.Split(';');
-            }
 
-            return user;
+                user = new(aux[1], Guid.Parse(aux[0]));
+                userList.Add(user);
+            }
+            sr.Close();
+
+            return userList;
         }
         catch (Exception)
         {
@@ -277,7 +312,7 @@ internal class Program
 
     private static List<string> ReadCategoryFile(string v)
     {
-        List<string> category = new List<string>();
+        List<string> categoryList = new List<string>();
 
         try
         {
@@ -285,10 +320,11 @@ internal class Program
             StreamReader sr = new StreamReader(v);
             while ((line = sr.ReadLine()) != null)
             {
-                var aux = line.Split(';');
+                categoryList.Add(line);
             }
+            sr.Close();
 
-            return category;
+            return categoryList;
         }
         catch (Exception)
         {
@@ -300,12 +336,6 @@ internal class Program
             Console.WriteLine("Arquivo Lido");
         }
     }
-
-
-
-
-
-
 
     private static void ListCategory(List<string> category)
     {
