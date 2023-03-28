@@ -216,6 +216,7 @@ internal class Program
         DateTime date = new DateTime(year, month, day);
 
         ListCategory(categoryList);
+        
         Console.WriteLine("Informe a categoria escolhida: ");
         int newCategory = InsertInt();
 
@@ -428,7 +429,7 @@ internal class Program
 
     private static void ListCategory(List<string> category)
     {
-        Console.WriteLine("CATEGORIAS DISPONÍVEIS:");
+        Console.WriteLine("\n\nCATEGORIAS DISPONÍVEIS:");
         int i = 1;
         foreach (string item in category)
         {
