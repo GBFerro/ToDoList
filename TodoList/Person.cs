@@ -20,15 +20,16 @@ namespace TodoList
             this.Name = "EU";
         }
 
+        public Person(string? name)
+        {
+            Name = name;
+            Id = Guid.NewGuid();
+        }
+
         public Person(string name, Guid id)
         {
             this.Name = name;
             this.Id = id;
-        }
-
-        public Person(string? name)
-        {
-            Name = name;
         }
 
         public string ToFile()

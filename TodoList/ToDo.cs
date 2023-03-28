@@ -27,6 +27,17 @@ namespace TodoList
             Status = false;
         }
 
+        public ToDo(Guid id,string description, string category, DateTime created, DateTime dueDate, bool status, Person owner)
+        {
+            Id = id;
+            Description = description;
+            Category = category;
+            Owner = owner;
+            Created = created;
+            DueDate = dueDate;
+            Status = status;
+        }
+
         public void SetStatus(bool b)
         {
             Status = b;
@@ -34,7 +45,7 @@ namespace TodoList
 
         public string ToFile()
         {
-            return $"{this.Id};{this.Description};{this.Category};{this.Owner};{this.Created};{this.DueDate};{this.Status}";
+            return $"{this.Id};{this.Description};{this.Category};{this.Created};{this.DueDate};{this.Status};{this.Owner.ToFile()}";
         }
 
         public override string ToString()
