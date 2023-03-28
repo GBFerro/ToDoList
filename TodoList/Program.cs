@@ -84,11 +84,16 @@ internal class Program
                     break;
 
                 case 6:
+                    EditTask(toDoList, userList, categoryList);
+                    break;
+
+                case 7:
                     WriteToDoFile(toDoList, toDoArchiveName);
                     WriteCategoryFile(categoryList, registerCategory);
                     WriteUserFile(userList, registerUser);
                     Environment.Exit(0);
                     break;
+
 
                 default:
                     Console.WriteLine("Opção inválida");
@@ -98,6 +103,90 @@ internal class Program
             }
 
         } while (true);
+    }
+
+    private static void EditTask(List<ToDo> toDoList, List<Person> userList, List<string> categoryList)
+    {
+       
+        ListTasks(toDoList);
+        Console.WriteLine("Informe a tarefa escolhida: ");
+        int position = InsertInt();
+
+
+        
+        bool condition = true;
+
+        do
+        {
+            int option = EditionMenu();
+
+            switch (option)
+            {
+
+                case 1:
+                    Console.WriteLine("Informe a nova descrição: ");
+                    string description = Console.ReadLine();
+                    toDoList[position - 1].Description = description;
+                    break;
+                case 2:
+                    
+                    ListCategory(categoryList);
+                   
+                    Console.WriteLine("Informe a categoria escolhida: ");
+                    int cat = InsertInt();
+                    string categ = categoryList[cat - 1];
+                    toDoList[position - 1].Category = categ;
+                    break;
+                case 3:
+                    Console.WriteLine("Alterando data de conclusão...");
+                    Console.Write("Informe a data no formato (dd/mm/aaaa):  ");
+                    DateTime date = DateTime.Parse(Console.ReadLine());
+                    toDoList[position-1].DueDate= date;
+                    break;
+
+                case 4:
+                    ListUser(userList);
+                    Console.Write("Informe o novo usuário: ");
+                    int userNumber = InsertInt();
+                    Person us = userList[userNumber - 1];
+                    toDoList[position -1].Owner = us;
+
+
+
+                    break;
+                case 5:
+                    condition = false;
+                    break;
+                default:
+                    Console.WriteLine("Informe um valor de acordo com  o menu...");
+                    break;
+            }
+        } while (condition);
+    }
+
+    private static void ListTasks(List<ToDo> toDoList)
+    {
+        Console.WriteLine("TAREFAS DISPONÍVEIS:");
+        int i = 1;
+        foreach (var item in toDoList)
+        {
+            Console.WriteLine(i + "-" + item.Description);
+            i++;
+        }
+    }
+
+    private static int EditionMenu()
+    {
+
+        Console.Clear();
+        Console.WriteLine(">>>Menu de opções<<<\n\n1 - Editar descrição \n2 - Editar categoria\n" +
+            "3 - Editar data de conclusão\n4 - Editar pessoa \n5 - Sair\n\n" +
+            "Escolha uma opção: ");
+
+        var aux = InsertInt();
+
+        return aux;
+
     }
 
     private static void CreateTask(List<string> categoryList, List<ToDo> toDoList)
@@ -258,7 +347,7 @@ internal class Program
                 var status = bool.Parse(aux[5]);
                 var ownerId = Guid.Parse(aux[6]);
                 var ownerName = aux[7];
-                
+
                 createDate = DateTime.Parse(aux[3]);
                 dueDate = DateTime.Parse(aux[4]);
 
@@ -360,7 +449,7 @@ internal class Program
     {
         Console.Clear();
         Console.WriteLine(">>>Menu de opções<<<\n\n1 - Criar Tarefa \n2 - Cadastrar Pessoas\n" +
-            "3 - Criar Categorias\n4 - Concluir Tarefa\n5 - Listar Tarefas\n6 - Sair\n\n" +
+            "3 - Criar Categorias\n4 - Concluir Tarefa\n5 - Listar Tarefas\n6 - Editar Tarefa\n7 - Sair\n\n" +
             "Escolha uma opção: ");
 
         var aux = InsertInt();
