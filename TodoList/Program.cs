@@ -88,8 +88,6 @@ internal class Program
             }
 
         } while (true);
-
-
     }
 
     private static void CreateTask(List<string> categoryList, List<ToDo> toDoList)
